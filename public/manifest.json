@@ -1,0 +1,61 @@
+{
+  "id": "/",
+  "name": "Toybox",
+  "short_name": "Toybox",
+  "description": "Toybox - сервис для геймеров: оценивай игры, собирай коллекции, пиши отзывы и находи друзей.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "portrait",
+  "background_color": "#191919",
+  "theme_color": "#191919",
+  "lang": "ru",
+  "dir": "ltr",
+
+  "icons": [
+    {
+      "src": "/icons/192-gamepad-2_3.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/512-gamepad-2_3.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/512-gamepad-2_3.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "categories": ["games", "entertainment", "social"],
+
+  "screenshots": [
+    {
+      "src": "/icons/512-gamepad-2_3.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Поиск игр",
+      "short_name": "Поиск",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/icons/192-gamepad-2_3.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
