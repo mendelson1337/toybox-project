@@ -15,6 +15,7 @@ import { useBackTableViewsStore } from '@/pinia/backTableViews.js';
 import { useBackAuthStore } from '@/pinia/backAuth.js';
 import { getRuntimeEnvironment } from '@/helpers/frontEnv.js';
 import { useEnvVariablesStore } from '@/pinia/envVariables.js';
+import { createEnvironmentVariablesContext } from './services/environmentVariables';
 
 export default {
     ...services,
@@ -111,10 +112,7 @@ wwLib.wwPluginHelper.registerPlugin('plugin-9c40819b-4a8f-468f-9ba5-4b9699f3361f
             const envVariablesStore = useEnvVariablesStore(wwLib.$pinia);
             let env = wwLib.getEnvironment();
             if (env === 'preview') env = 'production';
-            return Object.values(envVariablesStore.values).reduce((acc, envVariable) => {
-                acc[envVariable.name] = envVariable[`${env}Value`];
-                return acc;
-            }, {});
+            return createEnvironmentVariablesContext(Object.values(envVariablesStore.values), env);
         }),
         tableViews: computed(() => {
             const backTableViewsStore = useBackTableViewsStore(wwLib.$pinia);
@@ -309,17 +307,6 @@ wwLib.wwPluginHelper.registerPlugin('plugin-9c40819b-4a8f-468f-9ba5-4b9699f3361f
         //     'wwLib.resolveObjectPropertyPath is DEPRECATED, use wwLib.wwUtils.resolveObjectPropertyPath instead'
         // );
         return wwLib.wwUtils.resolveObjectPropertyPath(...args);
-    },
-
-    /**
-     * @PUBLIC_API
-     * @DEPRECATED wwLib.wwutils.getTextStyleFromContent
-     */
-    getTextStyleFromContent(...args) {
-        // wwLib.wwLog.warn(
-        //     'wwLib.getTextStyleFromContent is DEPRECATED, use wwLib.wwUtils.getTextStyleFromContent instead'
-        // );
-        return wwLib.wwUtils.getTextStyleFromContent(...args);
     },
 
     /**

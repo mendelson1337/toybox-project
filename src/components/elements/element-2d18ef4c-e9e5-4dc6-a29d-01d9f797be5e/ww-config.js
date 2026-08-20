@@ -1,4 +1,14 @@
 export default {
+    css({ style }) {
+        // Expose the element cursor as a CSS variable so the inner multiselect nodes can consume it
+        // through the style compiler, instead of injecting the resolved `componentStyle` in JS.
+        return [
+            {
+                property: '--component-cursor',
+                value: style.cursor,
+            },
+        ];
+    },
     editor: {
         label: {
             en: 'Input multiselect',

@@ -79,7 +79,7 @@
 <script>
 import Multiselect from '@vueform/multiselect';
 import OptionItem from './OptionItem.vue';
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 
 const DEFAULT_LABEL_FIELD = 'label';
 const DEFAULT_VALUE_FIELD = 'value';
@@ -100,11 +100,7 @@ export default {
             defaultValue: computed(() => props.content.initialValue ?? ''),
         });
 
-        const styles = inject('componentStyle');
-
-        const cursor = computed(() => styles.cursor);
-
-        return { currentSelection, setCurrentSelection, cursor };
+        return { currentSelection, setCurrentSelection };
     },
     data: () => ({
         options: [],
@@ -163,8 +159,8 @@ export default {
         },
         defaultOptionStyle() {
             return {
-                backgroundColor: this.content.optionsDefaultBgColor,
-                color: this.content.optionsDefaultTextColor,
+                '--ww-input-select-option-background-color': this.content.optionsDefaultBgColor,
+                '--ww-input-select-option-color': this.content.optionsDefaultTextColor,
             };
         },
         cssVariables() {
@@ -186,7 +182,6 @@ export default {
                 '--search-font-size': this.content.searchFontSize || 'inherit',
                 '--search-font-family': this.content.searchFontFamily || 'inherit',
                 '--search-font-color': this.content.searchFontColor || 'inherit',
-                '--component-cursor': this.cursor || 'pointer',
             };
         },
         isReadonly() {
@@ -296,8 +291,11 @@ export default {
                       value,
                       image: wwLib.resolveObjectPropertyPath(option, 'image'),
                       style: {
-                          backgroundColor: wwLib.resolveObjectPropertyPath(option, 'bgColor') || '#FFFFFF00',
-                          color: wwLib.resolveObjectPropertyPath(option, 'textColor') || '#000000',
+                          '--ww-input-select-option-background-color': wwLib.resolveObjectPropertyPath(
+                              option,
+                              'bgColor'
+                          ),
+                          '--ww-input-select-option-color': wwLib.resolveObjectPropertyPath(option, 'textColor'),
                       },
                       data: option,
                   }
@@ -338,7 +336,7 @@ export default {
 <style type="scss" scoped>
 /* We need to use multiselect classname  */
 .ww-input-select {
-    cursor: var(--component-cursor);
+    cursor: var(--component-cursor, pointer);
     --ms-bg: transparent;
 
     --ms-border-width: 0px;
@@ -350,7 +348,7 @@ export default {
     }
 }
 .ww-input-select:deep(.multiselect-wrapper) {
-    cursor: var(--component-cursor);
+    cursor: var(--component-cursor, pointer);
     height: inherit;
     min-height: unset;
 }
@@ -367,6 +365,8 @@ export default {
     width: inherit;
     padding: 0px !important;
     overflow: hidden;
+    color: var(--ww-input-select-option-color, inherit);
+    background-color: var(--ww-input-select-option-background-color, #ffffff00);
 }
 .multiselect-single-label-readonly {
     position: relative;
@@ -383,6 +383,9 @@ export default {
 .ww-input-select:deep(.multiselect-option) {
     padding: 0px !important;
     width: 100%;
+}
+.ww-input-select:deep(.multiselect-option:not(.is-pointed):not(.is-selected):not(.is-disabled)) {
+    color: var(--ms-option-color, #000000);
 }
 .ww-input-select:deep(.multiselect-placeholder-el) {
     flex-grow: 1;
