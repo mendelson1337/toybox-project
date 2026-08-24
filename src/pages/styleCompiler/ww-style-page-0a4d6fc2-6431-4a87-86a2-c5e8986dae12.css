@@ -169,17 +169,17 @@
         white-space-collapse: preserve;
       }
     }
-    .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:hover {
+    .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:where(:hover) {
       text-decoration: none;
       white-space-collapse: preserve;
     }
     @media (max-width: 991px) {
-      .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:hover {
+      .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:where(:hover) {
         white-space-collapse: preserve;
       }
     }
     @media (max-width: 767px) {
-      .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:hover {
+      .ww-element-485b4198-f53c-4056-8a8a-38bdea15452b:where(:hover) {
         white-space-collapse: preserve;
       }
     }
@@ -391,17 +391,17 @@
         white-space-collapse: preserve;
       }
     }
-    .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:hover {
+    .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:where(:hover) {
       text-decoration: none;
       white-space-collapse: preserve;
     }
     @media (max-width: 991px) {
-      .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:hover {
+      .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:where(:hover) {
         white-space-collapse: preserve;
       }
     }
     @media (max-width: 767px) {
-      .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:hover {
+      .ww-element-d6de6edb-82b4-461f-8e06-eeb8de94dde1:where(:hover) {
         white-space-collapse: preserve;
       }
     }
@@ -423,9 +423,6 @@
       column-gap: var(--ww-content-column-gap-layout-flex, revert-layer);
       flex-wrap: var(--ww-content-flex-wrap-layout-flex, revert-layer);
     }
-    .ww-element-b52a1bc0-a773-432a-82bd-648dbc635dd3 [data-ww-layout-style-scopes~="b52a1bc0-a773-432a-82bd-648dbc635dd3"] {
-      height: var(--ww-content-height-layout-block, revert-layer);
-    }
     @media (max-width: 991px) {
       .ww-element-b52a1bc0-a773-432a-82bd-648dbc635dd3.ww-layout, .ww-element-b52a1bc0-a773-432a-82bd-648dbc635dd3 [data-ww-layout-style-scopes~="b52a1bc0-a773-432a-82bd-648dbc635dd3"] {
         display: var(--ww-style-display);
@@ -437,9 +434,6 @@
         flex-direction: var(--ww-content-flex-direction-layout-flex, revert-layer);
         row-gap: var(--ww-content-row-gap-layout-flex, revert-layer);
         flex-wrap: var(--ww-content-flex-wrap-layout-flex, revert-layer);
-      }
-      .ww-element-b52a1bc0-a773-432a-82bd-648dbc635dd3 [data-ww-layout-style-scopes~="b52a1bc0-a773-432a-82bd-648dbc635dd3"] {
-        height: var(--ww-content-height-layout-block, revert-layer);
       }
     }
     .ww-element-9765b15b-47d4-401b-908a-75240ac9454d {
@@ -456,7 +450,7 @@
       min-height: unset;
       transition: all 0.3s ease 0s;
     }
-    .ww-element-9765b15b-47d4-401b-908a-75240ac9454d:hover {
+    .ww-element-9765b15b-47d4-401b-908a-75240ac9454d:where(:hover) {
       transform: scale3d(1.1, 1.1, 1) translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0);
     }
     .ww-element-7711e239-60af-400a-82ac-5ec2e0c4cb23 {
@@ -619,7 +613,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -705,7 +699,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -756,7 +750,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -807,7 +801,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -859,7 +853,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -1269,7 +1263,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -1321,7 +1315,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -1419,17 +1413,17 @@
         white-space-collapse: preserve;
       }
     }
-    .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:hover {
+    .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:where(:hover) {
       text-decoration: none;
       white-space-collapse: preserve;
     }
     @media (max-width: 991px) {
-      .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:hover {
+      .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:where(:hover) {
         white-space-collapse: preserve;
       }
     }
     @media (max-width: 767px) {
-      .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:hover {
+      .ww-element-33e0f4fa-d2bd-44bb-bd0f-e1437dbfe364:where(:hover) {
         white-space-collapse: preserve;
       }
     }
@@ -1439,7 +1433,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -1490,7 +1484,7 @@
       overflow: unset;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, none);
       flex: 0 1 auto;
       max-width: unset;
       min-width: unset;
@@ -1538,4 +1532,6 @@
   }
   @layer custom {
   }
+}
+@layer ww-style-layout-override {
 }

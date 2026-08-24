@@ -59,7 +59,7 @@
       padding: 0;
       z-index: unset;
       align-self: unset;
-      display: var(--ww-style-display);
+      display: var(--ww-style-display, block);
       max-width: unset;
       min-width: unset;
       height: auto;
@@ -241,19 +241,20 @@
         white-space-collapse: preserve;
       }
     }
-    .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:hover {
+    .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:where(:hover) {
       white-space-collapse: preserve;
+      box-shadow: revert-layer;
       transition: all 0.3s ease 0s;
       transform: scale3d(1.05, 1.05, 1) translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0);
       --ww-element-transition: all 0.3s ease 0s;
     }
     @media (max-width: 991px) {
-      .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:hover {
+      .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:where(:hover) {
         white-space-collapse: preserve;
       }
     }
     @media (max-width: 767px) {
-      .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:hover {
+      .ww-element-100b72d5-3415-401e-910a-81938a7f3d41:where(:hover) {
         white-space-collapse: preserve;
       }
     }
@@ -466,4 +467,6 @@
   }
   @layer custom {
   }
+}
+@layer ww-style-layout-override {
 }
