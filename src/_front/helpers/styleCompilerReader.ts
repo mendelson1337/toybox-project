@@ -4,13 +4,16 @@ import {
     getComponentBaseConfiguration,
     getDisplayAllowedValues as getConfigurationDisplayAllowedValues,
 } from '@/_common/helpers/component/component';
+import { getInheritedConfiguration } from '@/_common/helpers/configuration/configuration';
 import { useComponentBasesStore } from '@/pinia/componentBases';
 import {
     createElementSelector,
     createSectionContainerSelector,
+    getNativeStyleStatePseudoClass,
     normalizeConfiguredStyleStates,
     PARENT_STYLE_STATE_PREFIX,
 } from '@/_common/helpers/styleCompiler';
+import { getContentPropertyStateSupport } from '@/_common/helpers/styleCompiler/propertyCapabilities';
 import type {
     StyleBreakpointName,
     StyleClassReader,
@@ -33,6 +36,8 @@ import { usePopupStore } from '@/pinia/popup';
 const BASE_STATE = 'base';
 const DEFAULT_STATE = 'default';
 const BREAKPOINT_NAMES: StyleBreakpointName[] = ['default', 'tablet', 'mobile'];
+const inheritedConfigurations = new WeakMap<object, StyleSourceData>();
+const emptyConfiguration: StyleSourceData = {};
 
 type StyleSourceData = Record<string, any>;
 type EditorLibraryComponentSourceIndex = {
@@ -279,9 +284,7 @@ function createSourceReader(
                 if (!isLibraryComponentInstance(data)) return null;
 
                 const fallbackData = getLibraryComponentRootElement(data.libraryComponentBaseId);
-                return fallbackData
-                    ? createSourceReader(fallbackData, 'element', resolveParentStateReference)
-                    : null;
+                return fallbackData ? createSourceReader(fallbackData, 'element', resolveParentStateReference) : null;
             },
             isDirectSectionChild() {
                 return isDirectSectionChild(data);
@@ -306,6 +309,9 @@ function createBaseSourceReader(
         uid() {
             return data.uid;
         },
+        styleSourceId() {
+            return typeof data._si === 'number' ? data._si : undefined;
+        },
         baseId() {
             return getSourceBaseId(data, kind);
         },
@@ -325,7 +331,12 @@ function createBaseSourceReader(
             return createPropertyTreeReader(data, 'style');
         },
         content() {
-            return createPropertyTreeReader(data, 'content');
+            const configuration = getSourceConfiguration(data, kind);
+            return createPropertyTreeReader(
+                data,
+                'content',
+                getContentPropertyStateSupport(configuration, getInheritedSourceConfiguration(configuration))
+            );
         },
     };
 }
@@ -352,7 +363,7 @@ function createSourceCapabilities(data: StyleSourceData, kind: 'element' | 'sect
 
 function getSourceConfiguration(data: StyleSourceData, kind: 'element' | 'section') {
     const baseId = getSourceBaseId(data, kind);
-    if (!baseId) return {};
+    if (!baseId) return emptyConfiguration;
 
     if (kind === 'section') return getComponentBaseConfiguration('section', baseId);
     if (data.libraryComponentBaseId && !data.wwObjectBaseId) {
@@ -360,6 +371,15 @@ function getSourceConfiguration(data: StyleSourceData, kind: 'element' | 'sectio
     }
 
     return getComponentBaseConfiguration('element', baseId);
+}
+
+function getInheritedSourceConfiguration(configuration: StyleSourceData): StyleSourceData {
+    const cached = inheritedConfigurations.get(configuration);
+    if (cached) return cached;
+
+    const resolved = getInheritedConfiguration({ inherit: configuration.inherit });
+    inheritedConfigurations.set(configuration, resolved);
+    return resolved;
 }
 
 function getSourceBaseId(data: StyleSourceData, kind: 'element' | 'section') {
@@ -464,11 +484,13 @@ function getSourceParentRef(data: StyleSourceData, kind: 'element' | 'section') 
     if (kind !== 'element') return null;
 
     const sectionUid = data.parentSectionId;
-    if (!sectionUid || !getSections()[sectionUid]) return null;
+    const section = getSections()[sectionUid];
+    if (!sectionUid || !section) return null;
 
     return {
         uid: sectionUid,
-        selector: createSectionContainerSelector(sectionUid),
+        styleSourceId: section._si,
+        selector: createSectionContainerSelector(sectionUid, section._si),
     };
 }
 
@@ -526,8 +548,13 @@ function createClassReader(data: StyleSourceData): StyleClassReader {
     };
 }
 
-function createPropertyTreeReader(data: StyleSourceData, domain: StylePropertyDomain): StylePropertyTreeReader {
+function createPropertyTreeReader(
+    data: StyleSourceData,
+    domain: StylePropertyDomain,
+    supportsState?: (property: string) => boolean
+): StylePropertyTreeReader {
     return {
+        ...(supportsState ? { supportsState } : {}),
         state(name) {
             return createStateReader(data, domain, name);
         },
@@ -604,7 +631,10 @@ function getSourceStates(
         if (!state?.id) continue;
 
         const label = typeof state.label === 'string' ? state.label : undefined;
-        states.set(state.id, createStateDescriptor(state.id, selectorsByLabel, resolveParentStateReference, label));
+        const descriptor = createStateDescriptor(state.id, selectorsByLabel, resolveParentStateReference, label);
+        if (!hasAvailableParentState(state.id, descriptor)) continue;
+
+        states.set(state.id, descriptor);
     }
 
     collectStateNamesFromSlotKeys(
@@ -660,9 +690,15 @@ function collectStateNamesFromSlotKeys(
             if (!key.endsWith(suffix)) continue;
 
             const state = key.slice(0, -suffix.length);
-            if (state && !states.has(state)) {
-                states.set(state, createStateDescriptor(state, selectorsByLabel, resolveParentStateReference));
-            }
+            const descriptor = createInferredStateDescriptor(
+                states,
+                state,
+                selectorsByLabel,
+                resolveParentStateReference
+            );
+            if (!descriptor) continue;
+
+            states.set(state, descriptor);
         }
     }
 }
@@ -674,10 +710,49 @@ function collectStateNamesFromClassKeys(
     resolveParentStateReference: EditorParentStateReferenceResolver
 ) {
     for (const key of keys) {
-        if (key !== DEFAULT_STATE && key !== BASE_STATE && !states.has(key)) {
-            states.set(key, createStateDescriptor(key, selectorsByLabel, resolveParentStateReference));
-        }
+        const descriptor = createInferredStateDescriptor(
+            states,
+            key,
+            selectorsByLabel,
+            resolveParentStateReference
+        );
+        if (!descriptor) continue;
+
+        states.set(key, descriptor);
     }
+}
+
+function createInferredStateDescriptor(
+    states: Map<string, StyleStateDescriptor>,
+    state: string,
+    selectorsByLabel: Map<string, readonly string[]>,
+    resolveParentStateReference: EditorParentStateReferenceResolver
+): StyleStateDescriptor | null {
+    if (!state || state === DEFAULT_STATE || state === BASE_STATE || states.has(state)) return null;
+
+    const descriptor = createStateDescriptor(state, selectorsByLabel, resolveParentStateReference);
+    if (!hasAvailableParentState(state, descriptor)) return null;
+
+    return hasIndependentlyMatchingStateSelector(descriptor) ? null : descriptor;
+}
+
+function hasIndependentlyMatchingStateSelector(descriptor: StyleStateDescriptor) {
+    // Runtime-only inferred states remain inert without `_state.states`. Native and configured
+    // selectors can match the DOM independently, so inferring them would resurrect orphaned styles.
+    if (getNativeStyleStatePseudoClass(descriptor.id) || descriptor.selectors?.length) return true;
+
+    return !!(
+        descriptor.parent &&
+        (getNativeStyleStatePseudoClass(descriptor.parent.stateId) || descriptor.parent.selectors?.length)
+    );
+}
+
+function hasAvailableParentState(id: string, descriptor: StyleStateDescriptor) {
+    if (!id.startsWith(PARENT_STYLE_STATE_PREFIX)) return true;
+    if (!descriptor.parent) return false;
+
+    const parentSource = getParentStateSource(descriptor.parent.uid);
+    return !!parentSource && hasSourceStateId(parentSource.data, descriptor.parent.stateId);
 }
 
 function createStateDescriptor(
@@ -748,7 +823,7 @@ function getParentStateSource(uid: string) {
         return {
             data: element,
             kind: 'element' as const,
-            selector: createElementSelector(uid),
+            selector: createElementSelector(uid, element._si),
         };
     }
 
@@ -757,7 +832,7 @@ function getParentStateSource(uid: string) {
         return {
             data: section,
             kind: 'section' as const,
-            selector: createSectionContainerSelector(uid),
+            selector: createSectionContainerSelector(uid, section._si),
         };
     }
 
@@ -768,6 +843,10 @@ function findSourceState(data: StyleSourceData, stateId: string) {
     return (data._state?.states || []).find(
         (state: StyleSourceData) => state?.id === stateId || state?.label === stateId
     );
+}
+
+function hasSourceStateId(data: StyleSourceData, stateId: string) {
+    return (data._state?.states || []).some((state: StyleSourceData) => state?.id === stateId);
 }
 
 function getSourceStateLabel(state: StyleSourceData | undefined, fallback: string) {

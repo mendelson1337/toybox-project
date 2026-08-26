@@ -2,10 +2,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { effectScope, nextTick, reactive, watchEffect } from 'vue';
 
 import {
+    createElementSelector,
     createStringStyleSheetAdapter,
     createStyleCompiler,
     STATIC_STYLE_RUNTIME,
 } from '@/_common/helpers/styleCompiler';
+import {
+    BACKGROUND_VIDEO_CONFIGURATION,
+    GRID_CONFIGURATION,
+    LAYOUT_CONFIGURATION,
+    TEXT_CONFIGURATION,
+} from '@/_common/helpers/configuration/configurationInherit';
+import { getInheritedConfiguration } from '@/_common/helpers/configuration/configuration';
+import { getContentPropertyStateSupport } from '@/_common/helpers/styleCompiler/propertyCapabilities';
 import { createReactiveCompileScope } from './styleCompilerRuntimeScope';
 import { createEditorStyleCompilerSources } from './styleCompilerReader';
 
@@ -13,7 +22,12 @@ const componentConfigurations = vi.hoisted(
     () =>
         new Map<
             string,
-            { inherit?: unknown[]; options?: { autoByContent?: boolean; displayAllowedValues?: string[] } }
+            {
+                inherit?: unknown;
+                states?: Array<string | { label: string; selectors?: string[] }>;
+                options?: { autoByContent?: boolean; displayAllowedValues?: string[] };
+                properties?: Record<string, { states?: boolean }>;
+            }
         >()
 );
 const popupStore = vi.hoisted(() => ({ instances: {} as Record<string, StyleSourceData> }));
@@ -38,6 +52,7 @@ vi.mock('@/pinia/componentBases', () => ({
 
 type StyleSourceData = {
     uid?: string;
+    _si?: number;
     rootElementId?: string;
     wwObjectBaseId?: string | null;
     libraryComponentBaseId?: string | null;
@@ -424,8 +439,188 @@ describe('styleCompilerReader source indexing', () => {
         expect(parentState?.parent).toMatchObject({
             uid: 'parent',
             stateId: 'hover',
-            selector: '.ww-element-parent',
+            selector: createElementSelector('parent'),
         });
+    });
+
+    it('ignores undeclared native states persisted outside the state list', () => {
+        elements.elementA = {
+            uid: 'elementA',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [],
+                style: { _wwHover_default: { boxShadow: '0 0 0 3px blue' } },
+                classes: { _wwActive: ['classA'] },
+                subClasses: { _wwFocusVisible: ['classB'] },
+            },
+            content: { _wwFocus_default: { text: 'orphaned focus content' } },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('elementA')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('keeps native states that are explicitly declared', () => {
+        elements.elementA = {
+            uid: 'elementA',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [{ id: '_wwHover', label: 'Hover' }],
+                style: { _wwHover_default: { boxShadow: '0 0 0 3px blue' } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('elementA')?.states();
+
+        expect(states).toEqual([{ id: '_wwHover', label: 'Hover' }]);
+    });
+
+    it('ignores undeclared parent native states persisted outside the state list', () => {
+        elements.parent = {
+            uid: 'parent',
+            parentSectionId: 'sectionA',
+            _state: { states: [{ id: '_wwHover', label: 'Hover' }] },
+        };
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [],
+                style: { _wwParent_parent__wwHover_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('keeps parent native states that are explicitly declared', () => {
+        elements.parent = {
+            uid: 'parent',
+            parentSectionId: 'sectionA',
+            _state: { states: [{ id: '_wwHover', label: 'Hover' }] },
+        };
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [{ id: '_wwParent_parent__wwHover', label: 'Parent:Hover' }],
+                style: { _wwParent_parent__wwHover_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([
+            {
+                id: '_wwParent_parent__wwHover',
+                parent: {
+                    uid: 'parent',
+                    stateId: '_wwHover',
+                    selector: createElementSelector('parent'),
+                },
+            },
+        ]);
+    });
+
+    it('ignores declared parent native states that no longer exist on the parent', () => {
+        elements.parent = {
+            uid: 'parent',
+            parentSectionId: 'sectionA',
+            _state: { states: [] },
+        };
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [{ id: '_wwParent_parent__wwHover', label: 'Parent:Hover' }],
+                style: { _wwParent_parent__wwHover_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('ignores custom parent states that no longer exist on the parent', () => {
+        elements.parent = {
+            uid: 'parent',
+            parentSectionId: 'sectionA',
+            _state: { states: [] },
+        };
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [{ id: '_wwParent_parent_open', label: 'Parent:Open' }],
+                style: { _wwParent_parent_open_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('ignores parent states whose parent source no longer exists', () => {
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [{ id: '_wwParent_deletedParent_open', label: 'Deleted parent:Open' }],
+                style: { _wwParent_deletedParent_open_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('ignores undeclared configured-selector states persisted outside the state list', () => {
+        componentConfigurations.set('element:configuredBase', {
+            states: [{ label: 'focus', selectors: ['&:focus-within'] }],
+        });
+        elements.elementA = {
+            uid: 'elementA',
+            wwObjectBaseId: 'configuredBase',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [],
+                style: { focus_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('elementA')?.states();
+
+        expect(states).toEqual([]);
+    });
+
+    it('ignores undeclared parent configured-selector states persisted outside the state list', () => {
+        componentConfigurations.set('element:configuredBase', {
+            states: [{ label: 'focus', selectors: ['&:focus-within'] }],
+        });
+        elements.parent = {
+            uid: 'parent',
+            wwObjectBaseId: 'configuredBase',
+            parentSectionId: 'sectionA',
+            _state: { states: [{ id: 'focus', label: 'focus' }] },
+        };
+        elements.child = {
+            uid: 'child',
+            parentSectionId: 'sectionA',
+            _state: {
+                states: [],
+                style: { _wwParent_parent_focus_default: { opacity: 0.5 } },
+            },
+        };
+
+        const states = createEditorStyleCompilerSources().reader.element('child')?.states();
+
+        expect(states).toEqual([]);
     });
 });
 
@@ -458,13 +653,13 @@ describe('styleCompilerReader target lifecycle', () => {
 
         try {
             await nextTick();
-            expect(stylesheet.result()).toContain('.ww-element-elementA');
+            expect(stylesheet.result()).toContain(createElementSelector('elementA'));
             expect(stylesheet.result()).toContain('width: 100px;');
 
             delete elements.elementA;
             await nextTick();
 
-            expect(stylesheet.result()).not.toContain('.ww-element-elementA');
+            expect(stylesheet.result()).not.toContain(createElementSelector('elementA'));
         } finally {
             run.stop();
         }
@@ -501,6 +696,16 @@ describe('styleCompilerReader target lifecycle', () => {
 });
 
 describe('styleCompilerReader section roots', () => {
+    it('exposes persisted dense ids without deriving them reactively', () => {
+        elements.element = { uid: 'element', _si: 42 };
+        sections.sectionA = { uid: 'sectionA', _si: 7 };
+
+        const reader = createEditorStyleCompilerSources().reader;
+
+        expect(reader.element('element')?.styleSourceId?.()).toBe(42);
+        expect(reader.section('sectionA')?.styleSourceId?.()).toBe(7);
+    });
+
     it('reactively distinguishes direct section children from nested elements sharing the section id', async () => {
         const sectionRootElements = reactive([{ uid: 'root' }]);
         sections.sectionA = {
@@ -545,6 +750,50 @@ describe('styleCompilerReader component capabilities', () => {
         expect(reader.element('libraryInstance')?.capabilities?.().omitUndefinedDynamicValues).toBe(true);
         expect(reader.element('regularElement')?.capabilities?.().omitUndefinedDynamicValues).toBe(false);
     });
+
+    it('exposes inherited and component content property state capabilities', () => {
+        componentConfigurations.set('element:customBase', {
+            inherit: 'ww-layout',
+            properties: {
+                statefulProperty: { states: true },
+                staticProperty: {},
+                '_ww-layout_flexDirection': { states: true },
+            },
+        });
+        elements.element = createElement('element', 'customBase');
+
+        const content = createEditorStyleCompilerSources().reader.element('element')?.content();
+
+        expect(content?.supportsState?.('_ww-layout_rowGap')).toBe(true);
+        expect(content?.supportsState?.('_ww-layout_flexDirection')).toBe(false);
+        expect(content?.supportsState?.('statefulProperty')).toBe(true);
+        expect(content?.supportsState?.('staticProperty')).toBe(false);
+        expect(content?.supportsState?.('unknownProperty')).toBe(false);
+
+        componentConfigurations.get('element:customBase')!.properties!.statefulProperty.states = false;
+        expect(content?.supportsState?.('statefulProperty')).toBe(false);
+    });
+
+    it('keeps inherited state capabilities aligned with the authoritative configurations', () => {
+        const inheritedConfigurations = [
+            ['ww-text', TEXT_CONFIGURATION.properties],
+            [
+                'ww-layout',
+                {
+                    ...LAYOUT_CONFIGURATION.properties,
+                    ...GRID_CONFIGURATION.properties,
+                },
+            ],
+            ['ww-background-video', BACKGROUND_VIDEO_CONFIGURATION.properties],
+        ] as const;
+
+        for (const [inherit, properties] of inheritedConfigurations) {
+            const supportsState = getContentPropertyStateSupport(getInheritedConfiguration({ inherit }));
+            for (const [property, configuration] of Object.entries(properties)) {
+                expect(supportsState(property), `${inherit}.${property}`).toBe(configuration.states === true);
+            }
+        }
+    });
 });
 
 describe('styleCompilerReader library component display capabilities', () => {
@@ -582,7 +831,9 @@ describe('styleCompilerReader library component display capabilities', () => {
             stylesheet,
             runtime: STATIC_STYLE_RUNTIME,
         });
-        const instanceRule = run.result.match(/\.ww-element-pageInstance\s*\{[^}]*\}/)?.[0] || '';
+        const instanceSelector = createElementSelector('pageInstance');
+        const instanceRuleStart = run.result.indexOf(`${instanceSelector} {`);
+        const instanceRule = run.result.slice(instanceRuleStart, run.result.indexOf('}', instanceRuleStart) + 1);
 
         expect(instanceRule).toContain('display: flex;');
         expect(instanceRule).not.toContain('display: block;');
