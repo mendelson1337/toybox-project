@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <script>
-    // Этот скрипт перехватит ошибку 404 и перенаправит на index.html
-    var locationObj = window.location;
-    locationObj.replace(locationObj.protocol + '//' + locationObj.hostname + (locationObj.port ? ':' + locationObj.port : '') + '/?p=' + locationObj.pathname.replace(/^\/+|\/+$/g, ''));
-  </script>
