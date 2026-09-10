@@ -4,10 +4,10 @@ import { useIconsStore } from '@/pinia/icons';
 
  /* wwFront:start */
 // eslint-disable-next-line no-undef
-import plugin_f9ef41c3_1c53_4857_855b_f2f6a40b7186 from '@/components/plugins/plugin-f9ef41c3-1c53-4857-855b-f2f6a40b7186/src/wwPlugin.js';
-import plugin_1fa0dd68_5069_436c_9a7d_3b54c340f1fa from '@/components/plugins/plugin-1fa0dd68-5069-436c-9a7d-3b54c340f1fa/src/wwPlugin.js';
-import plugin_66a79c98_70e7_4bc4_8859_20776b024ec2 from '@/components/plugins/plugin-66a79c98-70e7-4bc4-8859-20776b024ec2/src/wwPlugin.js';
-import plugin_9c40819b_4a8f_468f_9ba5_4b9699f3361f from '@/components/plugins/plugin-9c40819b-4a8f-468f-9ba5-4b9699f3361f/src/wwPlugin.js';
+import plugin_f9ef41c3_1c53_4857_855b_f2f6a40b7186 from '@weweb-internal/ext-plugin-f9ef41c3-1c53-4857-855b-f2f6a40b7186';
+import plugin_1fa0dd68_5069_436c_9a7d_3b54c340f1fa from '@weweb-internal/ext-plugin-1fa0dd68-5069-436c-9a7d-3b54c340f1fa';
+import plugin_66a79c98_70e7_4bc4_8859_20776b024ec2 from '@weweb-internal/ext-plugin-66a79c98-70e7-4bc4-8859-20776b024ec2';
+import plugin_9c40819b_4a8f_468f_9ba5_4b9699f3361f from '@weweb-internal/ext-plugin-9c40819b-4a8f-468f-9ba5-4b9699f3361f';
 /* wwFront:end */
 
 import { computed, reactive } from 'vue';

@@ -2,27 +2,27 @@ import './styleCompiler/ww-style-page-c65729d0-8f8c-4c4e-8825-5af67d3ba1be.css';
 /*__WW_PAGE_COMPONENT_IMPORTS_START__*/
 
 // eslint-disable-next-line no-undef
-import element_14723a21_0178_4d92_a7e9_d1dfeaec29a7 from "@/components/elements/element-14723a21-0178-4d92-a7e9-d1dfeaec29a7/src/wwElement.vue";
-import element_1b1e2173_9b78_42cc_a8ee_a6167caea340 from "@/components/elements/element-1b1e2173-9b78-42cc-a8ee-a6167caea340/src/wwElement.vue";
-import element_1ba25bdf_dee9_4e0e_a0b8_b3f3128c3b65 from "@/components/elements/element-1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65/src/wwElement.vue";
-import element_3a7d6379_12d3_4387_98ff_b332bb492a63 from "@/components/elements/element-3a7d6379-12d3-4387-98ff-b332bb492a63/src/wwElement.vue";
-import element_59dca300_db78_42e4_a7a6_0cbf22d3cc82 from "@/components/elements/element-59dca300-db78-42e4-a7a6-0cbf22d3cc82/src/wwElement.vue";
-import element_6047b8df_81b7_45a7_a6b3_7355fb2fa3cd from "@/components/elements/element-6047b8df-81b7-45a7-a6b3-7355fb2fa3cd/src/wwElement.vue";
-import element_6145eb60_0af8_4e52_bcc6_dc0f6743654e from "@/components/elements/element-6145eb60-0af8-4e52-bcc6-dc0f6743654e/./src/wwElement_Select.vue";
-import element_6f8796b1_8273_498d_95fc_7013b7c63214 from "@/components/elements/element-6f8796b1-8273-498d-95fc-7013b7c63214/src/wwElement.vue";
-import element_7179ba70_c5d7_49a5_9828_f85704fd1efc from "@/components/elements/element-7179ba70-c5d7-49a5-9828-f85704fd1efc/src/wwElement.vue";
-import element_83d890fb_84f9_4386_b459_fb4be89a8e15 from "@/components/elements/element-83d890fb-84f9-4386-b459-fb4be89a8e15/src/wwElement.vue";
-import element_985570fc_b3c0_4566_8004_82ab3b30a11d from "@/components/elements/element-985570fc-b3c0-4566-8004-82ab3b30a11d/src/wwElement.vue";
-import element_9ecb2cfc_cef7_4be8_b736_3e17a3b7e9ff from "@/components/elements/element-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff/src/wwElement.vue";
-import element_aa27b26f_0686_4c29_98c5_8217044045b7 from "@/components/elements/element-aa27b26f-0686-4c29-98c5-8217044045b7/src/wwElement.vue";
-import element_b783dc65_d528_4f74_8c14_e27c934c39b1 from "@/components/elements/element-b783dc65-d528-4f74-8c14-e27c934c39b1/src/wwElement.vue";
-import element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e from "@/components/elements/element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e/src/wwElement.vue";
-import element_d7904e9d_fc9a_4d80_9e32_728e097879ad from "@/components/elements/element-d7904e9d-fc9a-4d80-9e32-728e097879ad/src/wwElement.vue";
-import element_deb10a01_5eef_4aa1_9017_1b51c2ad6fd0 from "@/components/elements/element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0/src/wwElement.vue";
-import element_f4c24d06_bc88_4b62_add3_4d1f8b42221c from "@/components/elements/element-f4c24d06-bc88-4b62-add3-4d1f8b42221c/src/wwElement.vue";
+import element_14723a21_0178_4d92_a7e9_d1dfeaec29a7 from "@weweb-internal/ext-element-14723a21-0178-4d92-a7e9-d1dfeaec29a7";
+import element_1b1e2173_9b78_42cc_a8ee_a6167caea340 from "@weweb-internal/ext-element-1b1e2173-9b78-42cc-a8ee-a6167caea340";
+import element_1ba25bdf_dee9_4e0e_a0b8_b3f3128c3b65 from "@weweb-internal/ext-element-1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65";
+import element_3a7d6379_12d3_4387_98ff_b332bb492a63 from "@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63";
+import element_59dca300_db78_42e4_a7a6_0cbf22d3cc82 from "@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82";
+import element_6047b8df_81b7_45a7_a6b3_7355fb2fa3cd from "@weweb-internal/ext-element-6047b8df-81b7-45a7-a6b3-7355fb2fa3cd";
+import element_6145eb60_0af8_4e52_bcc6_dc0f6743654e from "@weweb-internal/ext-element-6145eb60-0af8-4e52-bcc6-dc0f6743654e";
+import element_6f8796b1_8273_498d_95fc_7013b7c63214 from "@weweb-internal/ext-element-6f8796b1-8273-498d-95fc-7013b7c63214";
+import element_7179ba70_c5d7_49a5_9828_f85704fd1efc from "@weweb-internal/ext-element-7179ba70-c5d7-49a5-9828-f85704fd1efc";
+import element_83d890fb_84f9_4386_b459_fb4be89a8e15 from "@weweb-internal/ext-element-83d890fb-84f9-4386-b459-fb4be89a8e15";
+import element_985570fc_b3c0_4566_8004_82ab3b30a11d from "@weweb-internal/ext-element-985570fc-b3c0-4566-8004-82ab3b30a11d";
+import element_9ecb2cfc_cef7_4be8_b736_3e17a3b7e9ff from "@weweb-internal/ext-element-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff";
+import element_aa27b26f_0686_4c29_98c5_8217044045b7 from "@weweb-internal/ext-element-aa27b26f-0686-4c29-98c5-8217044045b7";
+import element_b783dc65_d528_4f74_8c14_e27c934c39b1 from "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1";
+import element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e from "@weweb-internal/ext-element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e";
+import element_d7904e9d_fc9a_4d80_9e32_728e097879ad from "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad";
+import element_deb10a01_5eef_4aa1_9017_1b51c2ad6fd0 from "@weweb-internal/ext-element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0";
+import element_f4c24d06_bc88_4b62_add3_4d1f8b42221c from "@weweb-internal/ext-element-f4c24d06-bc88-4b62-add3-4d1f8b42221c";
 
 // eslint-disable-next-line no-undef
-import section_99586bd3_2b15_4d6b_a025_6a50d07ca845 from "@/components/sections/section-99586bd3-2b15-4d6b-a025-6a50d07ca845/src/wwSection.vue";
+import section_99586bd3_2b15_4d6b_a025_6a50d07ca845 from "@weweb-internal/ext-section-99586bd3-2b15-4d6b-a025-6a50d07ca845";
 
 /*__WW_PAGE_COMPONENT_IMPORTS_END__*/
 
@@ -41,115 +41,115 @@ export default async function registerPageComponents(app) {
 [
     {
         "baseId": "14723a21-0178-4d92-a7e9-d1dfeaec29a7",
-        "importPath": "@/components/elements/element-14723a21-0178-4d92-a7e9-d1dfeaec29a7/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-14723a21-0178-4d92-a7e9-d1dfeaec29a7",
         "name": "wwobject-14723a21-0178-4d92-a7e9-d1dfeaec29a7",
         "type": "element"
     },
     {
         "baseId": "1b1e2173-9b78-42cc-a8ee-a6167caea340",
-        "importPath": "@/components/elements/element-1b1e2173-9b78-42cc-a8ee-a6167caea340/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-1b1e2173-9b78-42cc-a8ee-a6167caea340",
         "name": "wwobject-1b1e2173-9b78-42cc-a8ee-a6167caea340",
         "type": "element"
     },
     {
         "baseId": "1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65",
-        "importPath": "@/components/elements/element-1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65",
         "name": "wwobject-1ba25bdf-dee9-4e0e-a0b8-b3f3128c3b65",
         "type": "element"
     },
     {
         "baseId": "3a7d6379-12d3-4387-98ff-b332bb492a63",
-        "importPath": "@/components/elements/element-3a7d6379-12d3-4387-98ff-b332bb492a63/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63",
         "name": "wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63",
         "type": "element"
     },
     {
         "baseId": "59dca300-db78-42e4-a7a6-0cbf22d3cc82",
-        "importPath": "@/components/elements/element-59dca300-db78-42e4-a7a6-0cbf22d3cc82/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82",
         "name": "wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82",
         "type": "element"
     },
     {
         "baseId": "6047b8df-81b7-45a7-a6b3-7355fb2fa3cd",
-        "importPath": "@/components/elements/element-6047b8df-81b7-45a7-a6b3-7355fb2fa3cd/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-6047b8df-81b7-45a7-a6b3-7355fb2fa3cd",
         "name": "wwobject-6047b8df-81b7-45a7-a6b3-7355fb2fa3cd",
         "type": "element"
     },
     {
         "baseId": "6145eb60-0af8-4e52-bcc6-dc0f6743654e",
-        "importPath": "@/components/elements/element-6145eb60-0af8-4e52-bcc6-dc0f6743654e/./src/wwElement_Select.vue",
+        "importPath": "@weweb-internal/ext-element-6145eb60-0af8-4e52-bcc6-dc0f6743654e",
         "name": "wwobject-6145eb60-0af8-4e52-bcc6-dc0f6743654e",
         "type": "element"
     },
     {
         "baseId": "6f8796b1-8273-498d-95fc-7013b7c63214",
-        "importPath": "@/components/elements/element-6f8796b1-8273-498d-95fc-7013b7c63214/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-6f8796b1-8273-498d-95fc-7013b7c63214",
         "name": "wwobject-6f8796b1-8273-498d-95fc-7013b7c63214",
         "type": "element"
     },
     {
         "baseId": "7179ba70-c5d7-49a5-9828-f85704fd1efc",
-        "importPath": "@/components/elements/element-7179ba70-c5d7-49a5-9828-f85704fd1efc/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-7179ba70-c5d7-49a5-9828-f85704fd1efc",
         "name": "wwobject-7179ba70-c5d7-49a5-9828-f85704fd1efc",
         "type": "element"
     },
     {
         "baseId": "83d890fb-84f9-4386-b459-fb4be89a8e15",
-        "importPath": "@/components/elements/element-83d890fb-84f9-4386-b459-fb4be89a8e15/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-83d890fb-84f9-4386-b459-fb4be89a8e15",
         "name": "wwobject-83d890fb-84f9-4386-b459-fb4be89a8e15",
         "type": "element"
     },
     {
         "baseId": "985570fc-b3c0-4566-8004-82ab3b30a11d",
-        "importPath": "@/components/elements/element-985570fc-b3c0-4566-8004-82ab3b30a11d/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-985570fc-b3c0-4566-8004-82ab3b30a11d",
         "name": "wwobject-985570fc-b3c0-4566-8004-82ab3b30a11d",
         "type": "element"
     },
     {
         "baseId": "9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff",
-        "importPath": "@/components/elements/element-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff",
         "name": "wwobject-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff",
         "type": "element"
     },
     {
         "baseId": "aa27b26f-0686-4c29-98c5-8217044045b7",
-        "importPath": "@/components/elements/element-aa27b26f-0686-4c29-98c5-8217044045b7/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-aa27b26f-0686-4c29-98c5-8217044045b7",
         "name": "wwobject-aa27b26f-0686-4c29-98c5-8217044045b7",
         "type": "element"
     },
     {
         "baseId": "b783dc65-d528-4f74-8c14-e27c934c39b1",
-        "importPath": "@/components/elements/element-b783dc65-d528-4f74-8c14-e27c934c39b1/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1",
         "name": "wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1",
         "type": "element"
     },
     {
         "baseId": "c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
-        "importPath": "@/components/elements/element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
         "name": "wwobject-c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
         "type": "element"
     },
     {
         "baseId": "d7904e9d-fc9a-4d80-9e32-728e097879ad",
-        "importPath": "@/components/elements/element-d7904e9d-fc9a-4d80-9e32-728e097879ad/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad",
         "name": "wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad",
         "type": "element"
     },
     {
         "baseId": "deb10a01-5eef-4aa1-9017-1b51c2ad6fd0",
-        "importPath": "@/components/elements/element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0",
         "name": "wwobject-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0",
         "type": "element"
     },
     {
         "baseId": "f4c24d06-bc88-4b62-add3-4d1f8b42221c",
-        "importPath": "@/components/elements/element-f4c24d06-bc88-4b62-add3-4d1f8b42221c/src/wwElement.vue",
+        "importPath": "@weweb-internal/ext-element-f4c24d06-bc88-4b62-add3-4d1f8b42221c",
         "name": "wwobject-f4c24d06-bc88-4b62-add3-4d1f8b42221c",
         "type": "element"
     },
     {
         "baseId": "99586bd3-2b15-4d6b-a025-6a50d07ca845",
-        "importPath": "@/components/sections/section-99586bd3-2b15-4d6b-a025-6a50d07ca845/src/wwSection.vue",
+        "importPath": "@weweb-internal/ext-section-99586bd3-2b15-4d6b-a025-6a50d07ca845",
         "name": "section-99586bd3-2b15-4d6b-a025-6a50d07ca845",
         "type": "section"
     }
