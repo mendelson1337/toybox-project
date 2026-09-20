@@ -62,6 +62,15 @@
   @layer normal {
     @layer atomic, ordered;
     @layer atomic {
+      .ww-a-HKUUaWr_lXVy4vXn {
+        margin: 0;
+        padding: 0;
+        z-index: unset;
+        max-width: unset;
+        min-width: unset;
+        min-height: unset;
+        font-family: var(--ww-default-font-family);
+      }
       .ww-a-hrle4cgh7E0q5WYv {
         margin: 0;
         padding: 0;
@@ -73,34 +82,9 @@
         max-height: unset;
         min-height: unset;
       }
-      .ww-a-HKUUaWr_lXVy4vXn {
-        margin: 0;
-        padding: 0;
-        z-index: unset;
-        max-width: unset;
-        min-width: unset;
-        min-height: unset;
-        font-family: var(--ww-default-font-family);
-      }
     }
     @layer ordered {
       .ww-e-d74 {
-        display: var(--ww-style-display);
-        width: 60%;
-      }
-      @media (max-width: 767px) {
-        .ww-e-d74 {
-          width: 100%;
-        }
-      }
-      .ww-e-d74.ww-layout, .ww-e-d74 [data-ww-ls~="d74"] {
-        display: var(--ww-style-display);
-        flex-direction: var(--ww-content-flex-direction-layout-flex, revert-layer);
-        align-items: var(--ww-content-align-items-layout-flex, revert-layer);
-        row-gap: var(--ww-content-row-gap-layout-flex, revert-layer);
-        flex-wrap: var(--ww-content-flex-wrap-layout-flex, revert-layer);
-      }
-      .ww-e-d75 {
         overflow: unset;
         align-self: unset;
         display: block;
@@ -135,9 +119,25 @@
         }
       }
       @media (max-width: 767px) {
-        .ww-e-d75 {
+        .ww-e-d74 {
           font-size: 12px;
         }
+      }
+      .ww-e-d75 {
+        display: var(--ww-style-display);
+        width: 60%;
+      }
+      @media (max-width: 767px) {
+        .ww-e-d75 {
+          width: 100%;
+        }
+      }
+      .ww-e-d75.ww-layout, .ww-e-d75 [data-ww-ls~="d75"] {
+        display: var(--ww-style-display);
+        flex-direction: var(--ww-content-flex-direction-layout-flex, revert-layer);
+        align-items: var(--ww-content-align-items-layout-flex, revert-layer);
+        row-gap: var(--ww-content-row-gap-layout-flex, revert-layer);
+        flex-wrap: var(--ww-content-flex-wrap-layout-flex, revert-layer);
       }
       .ww-e-d76 {
         display: var(--ww-style-display);
