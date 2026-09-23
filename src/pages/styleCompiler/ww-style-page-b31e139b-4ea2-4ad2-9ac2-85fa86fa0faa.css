@@ -845,25 +845,25 @@
       .ww-e-dsO.ww-layout:where(:hover), .ww-e-dsO [data-ww-ls~="dsO"]:where(:hover) {
         column-gap: 5px;
       }
-      .ww-e-dsP.ww-layout, .ww-e-dsP [data-ww-ls~="dsP"] {
-        display: flex;
-        flex-flow: column;
-      }
-      .ww-e-dsQ.ww-layout, .ww-e-dsQ [data-ww-ls~="dsQ"] {
-        display: flex;
-        flex-flow: column;
-      }
-      .ww-e-dsR {
+      .ww-e-dsP {
         padding: 10px;
         align-self: unset;
         display: flex;
         width: 40px;
       }
       @media (max-width: 767px) {
-        .ww-e-dsR {
+        .ww-e-dsP {
           padding: 10px;
           width: 40px;
         }
+      }
+      .ww-e-dsQ.ww-layout, .ww-e-dsQ [data-ww-ls~="dsQ"] {
+        display: flex;
+        flex-flow: column;
+      }
+      .ww-e-dsR.ww-layout, .ww-e-dsR [data-ww-ls~="dsR"] {
+        display: flex;
+        flex-flow: column;
       }
       .ww-e-dsS {
         padding: 10px;
@@ -878,16 +878,12 @@
         }
       }
       .ww-e-dsT {
-        padding: 10px;
-        align-self: unset;
-        display: flex;
-        width: 40px;
+        width: 22px;
+        height: auto;
+        transition: all 0.2s ease;
       }
-      @media (max-width: 767px) {
-        .ww-e-dsT {
-          padding: 10px;
-          width: 40px;
-        }
+      .ww-e-dsT:where([data-ww-states~="2w7mmz"]) {
+        transition: all 0.2s ease;
       }
       .ww-e-dsU {
         width: 22px;
@@ -898,12 +894,16 @@
         transition: all 0.2s ease;
       }
       .ww-e-dsV {
-        width: 22px;
-        height: auto;
-        transition: all 0.2s ease;
+        padding: 10px;
+        align-self: unset;
+        display: flex;
+        width: 40px;
       }
-      .ww-e-dsV:where([data-ww-states~="2w7mmz"]) {
-        transition: all 0.2s ease;
+      @media (max-width: 767px) {
+        .ww-e-dsV {
+          padding: 10px;
+          width: 40px;
+        }
       }
       .ww-e-dsW {
         margin: 0;
